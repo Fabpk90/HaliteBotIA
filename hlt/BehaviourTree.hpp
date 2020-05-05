@@ -6,9 +6,18 @@
 #define MYBOT_BEHAVIOURTREE_HPP
 
 
+#include "Node.hpp"
+#include <list>
+
 class BehaviourTree
 {
+public:
+    std::list<Node*> nodes;
 
+    BehaviourTree() = default;
+
+    void analyse();
+    void addNode(Node* n) { nodes.push_back(n); }
 };
 
 
