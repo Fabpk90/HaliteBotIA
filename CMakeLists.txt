@@ -18,7 +18,7 @@ foreach(dir ${dirs})
 endforeach()
 
 include_directories(${CMAKE_SOURCE_DIR})
-set(SOURCE_FILES "${SOURCE_FILES}" MyBot.cpp hlt/NodeContainer.hpp hlt/SequencerFlee.hpp hlt/EnemyAround.hpp hlt/Surrounded.hpp hlt/FleeDirection.hpp hlt/Blackboard.cpp hlt/Blackboard.hpp)
+set(SOURCE_FILES "${SOURCE_FILES}" MyBot.cpp hlt/NodeContainer.hpp hlt/SequencerFlee.hpp hlt/EnemyAround.hpp hlt/Surrounded.hpp hlt/FleeDirection.hpp hlt/Blackboard.hpp)
 
 add_executable(MyBot ${SOURCE_FILES})
 
