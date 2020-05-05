@@ -9,7 +9,7 @@
 class Sequencer : public NodeContainer
 {
 public:
-    Sequencer(hlt::Game *game);
+    Sequencer(hlt::Game* game, hlt::Player *player, hlt::Ship *ship);
     bool evaluate();
 };
 

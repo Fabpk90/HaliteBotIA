@@ -9,9 +9,8 @@
 class Selector : public NodeContainer
 {
 public:
-    Selector(hlt::Game *game);
+    Selector(hlt::Game* game, hlt::Player *player, hlt::Ship *ship);
     bool evaluate();
 };
-
 
 #endif //MYBOT_SELECTOR_HPP

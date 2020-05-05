@@ -10,7 +10,7 @@
 class NodeContainer : public Node
 {
 public:
-    NodeContainer(hlt::Game *game);
+    NodeContainer(hlt::Game* game, hlt::Player *player, hlt::Ship *ship);
     void addNode(Node* newNode);
     virtual bool evaluate() = 0;
 protected:

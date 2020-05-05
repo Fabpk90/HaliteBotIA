@@ -4,7 +4,7 @@
 
 #include "Selector.hpp"
 
-Selector::Selector(hlt::Game *game) : NodeContainer(game)
+Selector::Selector(hlt::Game* game, hlt::Player *player, hlt::Ship *ship) : NodeContainer(game, player, ship)
 {
 }
 

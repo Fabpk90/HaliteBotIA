@@ -4,7 +4,7 @@
 
 #include "Sequencer.hpp"
 
-Sequencer::Sequencer(hlt::Game *game) : NodeContainer(game)
+Sequencer::Sequencer(hlt::Game* game, hlt::Player *player, hlt::Ship *ship) : NodeContainer(game, player, ship)
 {
 }
 

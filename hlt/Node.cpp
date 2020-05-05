@@ -4,7 +4,7 @@
 
 #include "Node.hpp"
 
-Node::Node(hlt::Game* game)
+Node::Node(hlt::Game* game, hlt::Player *player, hlt::Ship *ship) : m_game(game), m_player(player), m_ship(ship)
 {
-    m_game = game;
+
 }

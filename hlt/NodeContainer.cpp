@@ -4,7 +4,7 @@
 
 #include "NodeContainer.hpp"
 
-NodeContainer::NodeContainer(hlt::Game *game) : Node(game)
+NodeContainer::NodeContainer(hlt::Game* game, hlt::Player *player, hlt::Ship *ship) : Node(game, player, ship)
 {
 }
 
