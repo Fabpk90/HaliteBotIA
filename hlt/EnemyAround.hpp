@@ -8,10 +8,10 @@
 #include "Node.hpp"
 
 //Checking if the associated ship has an enemy ship around him
-class EnemyInRange : Node
+class EnemyAround : Node
 {
 public:
-    EnemyInRange(hlt::Game* game, hlt::Player *player, hlt::Ship *ship) : Node(game, player, ship){};
+    EnemyAround(hlt::Game* game, Blackboard *blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
     bool evaluate()
     {
         hlt::Position shipPos = m_ship->position;

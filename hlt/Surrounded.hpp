@@ -15,6 +15,7 @@ public:
     Surrounded(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
     bool evaluate()
     {
+        m_blackboard->shipsAround.clear();
         int alliesAround = 0, enemiesAround = 0;
         hlt::Position shipPos = m_ship->position;
 
@@ -29,6 +30,10 @@ public:
                     if(currCell->is_occupied()){
                         //Referencing ship on the cell
                         auto ship = m_player->ships.find(currCell->ship->id);
+                        //Adding the ship to the shipsAround vector in the blackboard
+
+                        //TODO : The shipsAround vector should be updated before updating the tree
+                        m_blackboard->shipsAround.push_back(ship->second);
                         //If the ship is not contained within the player ship list, it is an enemy
                         if(ship != m_player->ships.end()){
                             ++enemiesAround;
