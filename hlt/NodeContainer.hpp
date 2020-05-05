@@ -10,8 +10,11 @@
 class NodeContainer : public Node
 {
 public:
-    NodeContainer(hlt::Game* game, hlt::Player *player, hlt::Ship *ship);
-    void addNode(Node* newNode);
+    NodeContainer(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){}
+    void addNode(Node* newNode)
+    {
+        m_nodes.push_back(newNode);
+    }
     virtual bool evaluate() = 0;
 protected:
     std::vector<Node*> m_nodes;
