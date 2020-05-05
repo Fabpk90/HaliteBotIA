@@ -3,3 +3,8 @@
 //
 
 #include "Node.hpp"
+
+Node::Node(hlt::Game* game)
+{
+    m_game = game;
+}

@@ -4,11 +4,14 @@
 
 #ifndef MYBOT_SEQUENCER_HPP
 #define MYBOT_SEQUENCER_HPP
+#include "Node.hpp"
 
 
-class Sequencer
+class Sequencer : public Node
 {
-
+public:
+    Sequencer(hlt::Game *game, Node *nodes, const int &nbNodes);
+    bool evaluate();
 };
 
 
