@@ -4,12 +4,8 @@
 
 #include "Sequencer.hpp"
 
-Sequencer::Sequencer(hlt::Game *game, Node *nodes, const int &nbNodes) : Node(game)
+Sequencer::Sequencer(hlt::Game *game) : NodeContainer(game)
 {
-    //Adding each node in the vector
-    m_nodes.reserve(nbNodes);
-    for(int i = 0; i < nbNodes; ++i)
-        m_nodes.push_back(&nodes[i]);
 }
 
 bool Sequencer::evaluate()

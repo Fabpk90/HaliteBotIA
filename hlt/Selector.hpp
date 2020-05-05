@@ -4,12 +4,12 @@
 
 #ifndef MYBOT_SELECTOR_HPP
 #define MYBOT_SELECTOR_HPP
-#include "Node.hpp"
+#include "NodeContainer.hpp"
 
-class Selector : public Node
+class Selector : public NodeContainer
 {
 public:
-    Selector(hlt::Game *game, Node* nodePtr, const int &nbNodes);
+    Selector(hlt::Game *game);
     bool evaluate();
 };
 
