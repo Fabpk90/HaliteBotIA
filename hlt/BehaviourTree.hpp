@@ -6,12 +6,15 @@
 #define MYBOT_BEHAVIOURTREE_HPP
 #include "Blackboard.hpp"
 #include "Node.hpp"
+
+#include "SequencerFlee.hpp"
+
 #include "game.hpp"
 
 class BehaviourTree
 {
 public:
-    BehaviourTree(hlt::Game* game) : m_game(game){}
+    BehaviourTree(hlt::Game* game, Blackboard* blackboard) : m_game(game), m_blackboard(blackboard){}
     void addNode(Node* newNode)
     {
         m_nodes.push_back(newNode);

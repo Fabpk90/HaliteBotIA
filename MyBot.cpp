@@ -27,8 +27,10 @@ int main(int argc, char* argv[]) {
     log::log("Successfully created bot! My Player ID is " + to_string(game.my_id) + ". Bot rng seed is " + to_string(rng_seed) + ".");
 
     Blackboard b = Blackboard();
-    BehaviourTree btShip = BehaviourTree(&game);
-    BehaviourTree btShipyard = BehaviourTree(&game);
+    BehaviourTree btShip = BehaviourTree(&game, &b);
+    btShip.addNode(new SequencerFlee(&game, &b, game.me));
+
+    BehaviourTree btShipyard = BehaviourTree(&game, &b);
 
     for (;;) {
         game.update_frame();
