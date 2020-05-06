@@ -9,7 +9,7 @@
 class Sequencer : public NodeContainer
 {
 public:
-    Sequencer(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : NodeContainer(game,blackboard,player,ship){}
+    Sequencer(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : NodeContainer(game,blackboard,player){}
     bool evaluate()
     {
         for(int i = 0; i < m_nodes.size(); ++i)

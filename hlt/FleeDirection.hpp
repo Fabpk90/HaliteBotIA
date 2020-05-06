@@ -11,7 +11,7 @@
 class FleeDirection : public Node
 {
 public:
-    FleeDirection(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
+    FleeDirection(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : Node(game, blackboard, player){};
     bool evaluate()
     {
         int xWeight = 0, yWeight = 0;
@@ -23,16 +23,16 @@ public:
             bool isEnemy = (tShip == m_player->ships.end());
 
             if(isEnemy){
-                if(ship->position.x > m_ship->position.x)
+                if(ship->position.x > m_blackboard->ship->position.x)
                     --xWeight;
                     //(isEnemy) ? ++rightWeight : --rightWeight;
-                if(ship->position.x < m_ship->position.x)
+                if(ship->position.x < m_blackboard->ship->position.x)
                     ++xWeight;
                     //(isEnemy) ? ++leftWeight : --leftWeight;
-                if(ship->position.y > m_ship->position.y)
+                if(ship->position.y > m_blackboard->ship->position.y)
                     --yWeight;
                     //(isEnemy) ? ++upWeight : --upWeight;
-                if(ship->position.y < m_ship->position.y)
+                if(ship->position.y < m_blackboard->ship->position.y)
                     ++yWeight;
                     //(isEnemy) ? ++downWeight : --downWeight;
             }
@@ -45,7 +45,7 @@ public:
             y = std::max(-1, std::min(yWeight, 1));
 
         //Setting the new target in the blackboard
-        hlt::Position target = hlt::Position(m_ship->position.x + x, m_ship->position.y + y);
+        hlt::Position target = hlt::Position(m_blackboard->ship->position.x + x, m_blackboard->ship->position.y + y);
         m_blackboard->target = target;
 
         return true;

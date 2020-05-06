@@ -13,11 +13,11 @@
 class SequencerFlee : public Sequencer
 {
 public:
-    SequencerFlee(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Sequencer(game,blackboard,player,ship)
+    SequencerFlee(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : Sequencer(game,blackboard,player)
     {
-        addNode(new EnemyAround(game, blackboard, player, ship));
-        addNode(new Surrounded(game, blackboard, player, ship));
-        addNode(new FleeDirection(game, blackboard, player, ship));
+        addNode(new EnemyAround(game, blackboard, player));
+        addNode(new Surrounded(game, blackboard, player));
+        addNode(new FleeDirection(game, blackboard, player));
     }
 };
 

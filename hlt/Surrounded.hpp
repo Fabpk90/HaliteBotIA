@@ -11,19 +11,19 @@
 class Surrounded : public Node
 {
 public:
-    Surrounded(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
+    Surrounded(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : Node(game, blackboard, player){};
     bool evaluate()
     {
         m_blackboard->shipsAround.clear();
         int alliesAround = 0, enemiesAround = 0;
-        hlt::Position shipPos = m_ship->position;
+        hlt::Position shipPos = m_blackboard->ship->position;
 
         //Checking surrounding cells
         for(int y = -ENEMY_MIN_DIST; y <= ENEMY_MIN_DIST; ++y){
             for(int x = -ENEMY_MIN_DIST; x <= ENEMY_MIN_DIST; ++x){
-                hlt::Position pos = hlt::Position(m_ship->position.x + x, m_ship->position.y);
+                hlt::Position pos = hlt::Position(m_blackboard->ship->position.x + x, m_blackboard->ship->position.y);
                 //Avoiding the current ship position
-                if(pos != m_ship->position){
+                if(pos != m_blackboard->ship->position){
                     //Getting the map cell with offset, Gamemap class is already wrapping positions in "at" function
                     hlt::MapCell *currCell = m_game->game_map->at(pos);
                     if(currCell->is_occupied()){
