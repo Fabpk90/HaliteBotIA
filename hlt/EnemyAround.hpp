@@ -11,7 +11,7 @@
 class EnemyAround : public Node
 {
 public:
-    EnemyAround(hlt::Game* game, Blackboard *blackboard, hlt::Player *player) : Node(game, blackboard, player){};
+    EnemyAround(hlt::Game* game, Blackboard *blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
     bool evaluate()
     {
         hlt::Position shipPos = m_blackboard->ship->position;

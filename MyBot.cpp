@@ -30,6 +30,8 @@ int main(int argc, char* argv[]) {
 
     Blackboard b = Blackboard();
     BehaviourTree btShip = BehaviourTree(&game, &b);
+    btShip.addNode(new SequencerFlee(&game, &b, game.me));
+
     BehaviourTree btShipyard = BehaviourTree(&game, &b);
 
     for (;;) {

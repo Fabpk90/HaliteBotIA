@@ -11,7 +11,7 @@
 class Surrounded : public Node
 {
 public:
-    Surrounded(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : Node(game, blackboard, player){};
+    Surrounded(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
     bool evaluate()
     {
         m_blackboard->shipsAround.clear();

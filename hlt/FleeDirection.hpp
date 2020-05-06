@@ -11,7 +11,7 @@
 class FleeDirection : public Node
 {
 public:
-    FleeDirection(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : Node(game, blackboard, player){};
+    FleeDirection(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
     bool evaluate()
     {
         int xWeight = 0, yWeight = 0;

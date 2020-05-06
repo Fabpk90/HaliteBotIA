@@ -6,6 +6,9 @@
 #define MYBOT_BEHAVIOURTREE_HPP
 #include "Blackboard.hpp"
 #include "Node.hpp"
+
+#include "SequencerFlee.hpp"
+
 #include "game.hpp"
 
 class BehaviourTree
