@@ -20,10 +20,16 @@ private:
     int m_amount;
     ECmpType m_type;
 public:
-    CheckShipCapacity(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship, int amount, ECmpType type)
-    : Node(game,blackboard, player, ship), m_amount(amount), m_type(type)
+    CheckShipCapacity(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player, int amount, ECmpType type)
+    : Node(game,blackboard, player), m_amount(amount), m_type(type)
     {}
-    bool evaluate() override;
+    bool evaluate() override
+    {
+        if(m_type == ECmpType::GREATER)
+            return m_blackboard->ship->halite > m_amount;
+
+        return m_blackboard->ship->halite < m_amount;
+    }
 };
 
 

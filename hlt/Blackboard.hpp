@@ -18,6 +18,7 @@ public:
     std::vector<hlt::Command> commands;
 
     std::shared_ptr<hlt::Ship> ship;
+    hlt::Game* m_game;
 };
 
 #endif //MYBOT_BLACKBOARD_HPP

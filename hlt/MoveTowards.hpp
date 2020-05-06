@@ -11,7 +11,15 @@
 class MoveTowards : Node
 {
 public:
-    bool evaluate() override;
+
+    MoveTowards(hlt::Game* game,Blackboard* blackboard, std::shared_ptr<hlt::Player> player)
+    : Node(game, blackboard, player)
+    {};
+
+    bool evaluate() override
+    {
+        m_blackboard->commands.push_back(m_blackboard->)
+    };
 };
 
 
