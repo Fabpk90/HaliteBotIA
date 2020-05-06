@@ -1,11 +1,9 @@
 #include "hlt/game.hpp"
-#include "hlt/constants.hpp"
-#include "hlt/log.hpp"
 
 #include <random>
 #include <ctime>
-#include <Blackboard.hpp>
-#include <BehaviourTree.hpp>
+#include "hlt/Blackboard.hpp"
+#include "hlt/BehaviourTree.hpp"
 
 using namespace std;
 using namespace hlt;
