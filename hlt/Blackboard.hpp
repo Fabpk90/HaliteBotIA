@@ -6,6 +6,7 @@
 #define MYBOT_BLACKBOARD_HPP
 
 #define ENEMY_MIN_DIST 4
+#define HALITE_SEARCH_PERIMETER 4
 
 #include "game.hpp"
 #include <vector>
