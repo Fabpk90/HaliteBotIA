@@ -15,6 +15,9 @@ class Blackboard
 public:
     hlt::Position target;
     std::vector<std::shared_ptr<hlt::Ship>> shipsAround;
+    std::vector<hlt::Command> commands;
+
+    std::shared_ptr<hlt::Ship> ship;
 };
 
 #endif //MYBOT_BLACKBOARD_HPP

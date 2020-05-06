@@ -4,6 +4,8 @@
 
 #include <random>
 #include <ctime>
+#include <Blackboard.hpp>
+#include <BehaviourTree.hpp>
 
 using namespace std;
 using namespace hlt;
@@ -18,6 +20,7 @@ int main(int argc, char* argv[]) {
     mt19937 rng(rng_seed);
 
     Game game;
+
     // At this point "game" variable is populated with initial map data.
     // This is a good place to do computationally expensive start-up pre-processing.
     // As soon as you call "ready" function below, the 2 second per turn timer will start.
@@ -25,32 +28,26 @@ int main(int argc, char* argv[]) {
 
     log::log("Successfully created bot! My Player ID is " + to_string(game.my_id) + ". Bot rng seed is " + to_string(rng_seed) + ".");
 
+    Blackboard b = Blackboard();
+    BehaviourTree btShip = BehaviourTree(&game);
+    BehaviourTree btShipyard = BehaviourTree(&game);
+
     for (;;) {
         game.update_frame();
+        b.commands.clear();
+
         shared_ptr<Player> me = game.me;
         unique_ptr<GameMap>& game_map = game.game_map;
 
-        vector<Command> command_queue;
-
-        for (const auto& ship_iterator : me->ships) {
-            shared_ptr<Ship> ship = ship_iterator.second;
-            if (game_map->at(ship)->halite < constants::MAX_HALITE / 10 || ship->is_full()) {
-                Direction random_direction = ALL_CARDINALS[rng() % 4];
-                command_queue.push_back(ship->move(random_direction));
-            } else {
-                command_queue.push_back(ship->stay_still());
-            }
-        }
-
-        if (
-            game.turn_number <= 200 &&
-            me->halite >= constants::SHIP_COST &&
-            !game_map->at(me->shipyard)->is_occupied())
+        for(auto& ship : me->ships)
         {
-            command_queue.push_back(me->shipyard->spawn());
+            b.ship = ship.second;
+            btShip.evaluate();
         }
 
-        if (!game.end_turn(command_queue)) {
+        btShipyard.evaluate();
+
+        if (!game.end_turn(b.commands)) {
             break;
         }
     }
