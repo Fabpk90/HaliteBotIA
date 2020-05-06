@@ -11,8 +11,8 @@
 class StayOnCell : Node
 {
 public:
-    StayOnCell(hlt::Game* game, hlt::Player *player, hlt::Ship *ship)
-    : Node(game, player, ship)
+    StayOnCell(hlt::Game* game,Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship)
+    : Node(game, blackboard, player, ship)
     {};
 
     bool evaluate() override;

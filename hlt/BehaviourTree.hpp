@@ -16,6 +16,15 @@ public:
     {
         m_nodes.push_back(newNode);
     }
+
+    void evaluate()
+    {
+        for(const auto& node: m_nodes )
+        {
+            node->evaluate();
+        }
+    }
+
 private:
     hlt::Game* m_game;
     std::vector<Node*> m_nodes;
