@@ -4,12 +4,11 @@
 
 #ifndef MYBOT_SURROUNDED_HPP
 #define MYBOT_SURROUNDED_HPP
-#define ENEMY_MIN_DIST 4
 
 #include "Node.hpp"
 
 //Checking if the associated ship is surrounded by more enemy ships than ally ones
-class Surrounded : Node
+class Surrounded : public Node
 {
 public:
     Surrounded(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
@@ -32,7 +31,7 @@ public:
                         auto ship = m_player->ships.find(currCell->ship->id);
                         //Adding the ship to the shipsAround vector in the blackboard
 
-                        //TODO : The shipsAround vector should be updated before updating the tree
+                        //TODO : The shipsAround vector should be updated before entering the tree
                         m_blackboard->shipsAround.push_back(ship->second);
                         //If the ship is not contained within the player ship list, it is an enemy
                         if(ship != m_player->ships.end()){

@@ -8,7 +8,7 @@
 #include "Node.hpp"
 
 //Checking if the associated ship has an enemy ship around him
-class EnemyAround : Node
+class EnemyAround : public Node
 {
 public:
     EnemyAround(hlt::Game* game, Blackboard *blackboard, hlt::Player *player, hlt::Ship *ship) : Node(game, blackboard, player, ship){};
