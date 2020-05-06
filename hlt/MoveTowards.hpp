@@ -18,7 +18,10 @@ public:
 
     bool evaluate() override
     {
-        m_blackboard->commands.push_back(m_blackboard->)
+        hlt::Direction d = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->ship, m_blackboard->target);
+        m_blackboard->commands.push_back(m_blackboard->ship->move(d));
+
+        return true;
     };
 };
 
