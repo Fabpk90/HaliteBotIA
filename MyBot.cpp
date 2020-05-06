@@ -2,6 +2,10 @@
 
 #include <random>
 #include <ctime>
+#include <CheckHalite.hpp>
+#include <CheckRemaningShips.hpp>
+#include <CheckForRemainingTurns.hpp>
+#include <CreateShip.hpp>
 #include "hlt/Blackboard.hpp"
 #include "hlt/BehaviourTree.hpp"
 #include "hlt/CheckShipCapacity.hpp"
@@ -47,12 +51,20 @@ int main(int argc, char* argv[]) {
 
     BehaviourTree btShipyard = BehaviourTree(&b);
 
+    Sequencer* s1 = new Sequencer(&b);
+
+    s1->addNode(new CheckHalite(&b, 1000, GREATER));
+    s1->addNode(new CheckRemainingShips(&b, 8, LESS));
+    s1->addNode(new CheckForRemainingTurns(&b, 10, GREATER));
+    s1->addNode(new CreateShip(&b));
+
+    btShipyard.addNode(s1);
+
     for (;;) {
         game.update_frame();
         b.m_commands.clear();
 
-
-        unique_ptr<GameMap>& game_map = game.game_map;
+        btShipyard.evaluate();
 
         for(auto& ship : me->ships)
         {
@@ -60,9 +72,9 @@ int main(int argc, char* argv[]) {
             btShip.evaluate();
         }
 
-        btShipyard.evaluate();
+        log::log(to_string(b.m_commands.size()));
 
-        if (!game.end_turn(b.m_commands)) {
+        if (!game.end_turn((b.m_commands))) {
             break;
         }
     }

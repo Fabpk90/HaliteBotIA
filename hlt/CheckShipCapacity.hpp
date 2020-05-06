@@ -7,21 +7,14 @@
 
 
 #include "Node.hpp"
+#include "CheckForThing.hpp"
 
-enum ECmpType
-{
-    GREATER,
-    LESS
-};
 
-class CheckShipCapacity : public Node
+class CheckShipCapacity : public CheckForThing
 {
-private:
-    int m_amount;
-    ECmpType m_type;
 public:
     CheckShipCapacity(Blackboard* blackboard, int amount, ECmpType type)
-    : Node(blackboard), m_amount(amount), m_type(type)
+    : CheckForThing(blackboard, amount, type)
     {}
     bool evaluate() override
     {
