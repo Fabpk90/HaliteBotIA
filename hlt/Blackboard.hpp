@@ -14,12 +14,13 @@
 class Blackboard
 {
 public:
-    hlt::Position target;
-    std::vector<std::shared_ptr<hlt::Ship>> shipsAround;
-    std::vector<hlt::Command> commands;
+    hlt::Position m_target;
+    std::vector<std::shared_ptr<hlt::Ship>> m_shipsAround;
+    std::vector<hlt::Command> m_commands;
 
-    std::shared_ptr<hlt::Ship> ship;
+    std::shared_ptr<hlt::Ship> m_ship;
     hlt::Game* m_game;
+    std::shared_ptr<hlt::Player> m_player;
 };
 
 #endif //MYBOT_BLACKBOARD_HPP

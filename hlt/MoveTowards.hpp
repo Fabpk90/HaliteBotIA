@@ -8,18 +8,18 @@
 
 #include "Node.hpp"
 
-class MoveTowards : Node
+class MoveTowards : public Node
 {
 public:
 
-    MoveTowards(hlt::Game* game,Blackboard* blackboard, std::shared_ptr<hlt::Player> player)
-    : Node(game, blackboard, player)
+    MoveTowards(Blackboard* blackboard)
+    : Node(blackboard)
     {};
 
     bool evaluate() override
     {
-        hlt::Direction d = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->ship, m_blackboard->target);
-        m_blackboard->commands.push_back(m_blackboard->ship->move(d));
+        hlt::Direction d = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, m_blackboard->m_target);
+        m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(d));
 
         return true;
     };

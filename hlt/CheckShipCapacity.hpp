@@ -14,21 +14,21 @@ enum ECmpType
     LESS
 };
 
-class CheckShipCapacity : Node
+class CheckShipCapacity : public Node
 {
 private:
     int m_amount;
     ECmpType m_type;
 public:
-    CheckShipCapacity(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player, int amount, ECmpType type)
-    : Node(game,blackboard, player), m_amount(amount), m_type(type)
+    CheckShipCapacity(Blackboard* blackboard, int amount, ECmpType type)
+    : Node(blackboard), m_amount(amount), m_type(type)
     {}
     bool evaluate() override
     {
         if(m_type == ECmpType::GREATER)
-            return m_blackboard->ship->halite > m_amount;
+            return m_blackboard->m_ship->halite > m_amount;
 
-        return m_blackboard->ship->halite < m_amount;
+        return m_blackboard->m_ship->halite < m_amount;
     }
 };
 

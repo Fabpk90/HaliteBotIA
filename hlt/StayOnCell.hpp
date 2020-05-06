@@ -17,7 +17,7 @@ public:
 
     bool evaluate() override
     {
-        m_blackboard->commands.push_back(m_blackboard->ship->stay_still());
+        m_blackboard->m_commands.push_back(m_blackboard->m_ship->stay_still());
     }
 };
 

@@ -4,6 +4,10 @@
 #include <ctime>
 #include "hlt/Blackboard.hpp"
 #include "hlt/BehaviourTree.hpp"
+#include "hlt/CheckShipCapacity.hpp"
+#include "hlt/MoveTowards.hpp"
+#include "hlt/FindHalite.hpp"
+#include "hlt/constants.hpp"
 
 using namespace std;
 using namespace hlt;
@@ -26,29 +30,39 @@ int main(int argc, char* argv[]) {
 
     log::log("Successfully created bot! My Player ID is " + to_string(game.my_id) + ". Bot rng seed is " + to_string(rng_seed) + ".");
 
+    shared_ptr<Player> me = game.me;
+
     Blackboard b = Blackboard();
+    b.m_player = me;
     b.m_game = &game;
     BehaviourTree btShip = BehaviourTree(&b);
     btShip.addNode(new SequencerFlee(&game, &b, game.me));
+
+    Sequencer* s = new Sequencer(&b);
+    s->addNode(new CheckShipCapacity(&b, constants::MAX_HALITE, LESS));
+    s->addNode(new FindHalite(&b));
+    s->addNode(new MoveTowards(&b));
+
+    btShip.addNode(s);
 
     BehaviourTree btShipyard = BehaviourTree(&b);
 
     for (;;) {
         game.update_frame();
-        b.commands.clear();
+        b.m_commands.clear();
 
-        shared_ptr<Player> me = game.me;
+
         unique_ptr<GameMap>& game_map = game.game_map;
 
         for(auto& ship : me->ships)
         {
-            b.ship = ship.second;
+            b.m_ship = ship.second;
             btShip.evaluate();
         }
 
         btShipyard.evaluate();
 
-        if (!game.end_turn(b.commands)) {
+        if (!game.end_turn(b.m_commands)) {
             break;
         }
     }

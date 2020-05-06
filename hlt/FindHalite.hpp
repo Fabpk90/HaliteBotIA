@@ -7,14 +7,15 @@
 
 #include "Node.hpp"
 
-class FindHalite : Node
+class FindHalite : public Node
 {
+public:
 
-    FindHalite(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
+    FindHalite( Blackboard* blackboard) : Node(blackboard){};
 
     bool evaluate() override
     {
-        hlt::Position p = m_blackboard->m_game->game_map->at(m_blackboard->ship)->position;
+        hlt::Position p = m_blackboard->m_game->game_map->at(m_blackboard->m_ship)->position;
         int maxHalite = -1;
         hlt::Position finalPosition = p;
 
@@ -37,7 +38,7 @@ class FindHalite : Node
             }
         }
 
-        m_blackboard->target = finalPosition;
+        m_blackboard->m_target = finalPosition;
 
         return maxHalite != -1;
     }

@@ -9,7 +9,7 @@
 class Sequencer : public NodeContainer
 {
 public:
-    Sequencer(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : NodeContainer(game,blackboard,player){}
+    Sequencer(Blackboard* blackboard) : NodeContainer(blackboard){}
     bool evaluate()
     {
         for(unsigned int i = 0; i < m_nodes.size(); ++i)

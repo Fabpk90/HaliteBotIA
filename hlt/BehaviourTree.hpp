@@ -28,6 +28,12 @@ public:
         }
     }
 
+    ~BehaviourTree()
+    {
+        for(Node* n : m_nodes)
+            delete n;
+    }
+
 private:
     std::vector<Node*> m_nodes;
     Blackboard* m_blackboard;

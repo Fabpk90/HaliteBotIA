@@ -11,24 +11,24 @@
 class EnemyAround : public Node
 {
 public:
-    EnemyAround(hlt::Game* game, Blackboard *blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
+    EnemyAround(Blackboard *blackboard) : Node(blackboard){};
     bool evaluate()
     {
-        hlt::Position shipPos = m_blackboard->ship->position;
+        hlt::Position shipPos = m_blackboard->m_ship->position;
 
         //Checking surrounding cells
         for(int y = -ENEMY_MIN_DIST; y <= ENEMY_MIN_DIST; ++y){
             for(int x = -ENEMY_MIN_DIST; x <= ENEMY_MIN_DIST; ++x){
-                hlt::Position pos = hlt::Position(m_blackboard->ship->position.x + x, m_blackboard->ship->position.y);
+                hlt::Position pos = hlt::Position(m_blackboard->m_ship->position.x + x, m_blackboard->m_ship->position.y);
                 //Avoiding the current ship position
-                if(pos != m_blackboard->ship->position){
+                if(pos != m_blackboard->m_ship->position){
                     //Getting the map cell with offset, Gamemap class is already wrapping positions in "at" function
-                    hlt::MapCell *currCell = m_game->game_map->at(pos);
+                    hlt::MapCell *currCell = m_blackboard->m_game->game_map->at(pos);
                     if(currCell->is_occupied()){
                         //Referencing ship on the cell
-                        auto ship = m_player->ships.find(currCell->ship->id);
+                        auto ship = m_blackboard->m_player->ships.find(currCell->ship->id);
                         //If the ship is not contained within the player ship list, it is an enemy
-                        if(ship != m_player->ships.end()){
+                        if(ship != m_blackboard->m_player->ships.end()){
                             return true;
                         }
                     }

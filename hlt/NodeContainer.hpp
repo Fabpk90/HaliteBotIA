@@ -10,7 +10,7 @@
 class NodeContainer : public Node
 {
 public:
-    NodeContainer(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){}
+    NodeContainer(Blackboard* blackboard) : Node(blackboard){}
     void addNode(Node* newNode)
     {
         m_nodes.push_back(newNode);
