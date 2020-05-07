@@ -2,10 +2,10 @@
 
 #include <random>
 #include <ctime>
-#include <CheckHalite.hpp>
-#include <CheckRemaningShips.hpp>
-#include <CheckForRemainingTurns.hpp>
-#include <CreateShip.hpp>
+#include "hlt/CheckHalite.hpp"
+#include "hlt/CheckRemaningShips.hpp"
+#include "hlt/CheckForRemainingTurns.hpp"
+#include "hlt/CreateShip.hpp"
 #include "hlt/Blackboard.hpp"
 #include "hlt/BehaviourTree.hpp"
 #include "hlt/CheckShipCapacity.hpp"

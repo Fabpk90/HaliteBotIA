@@ -16,6 +16,8 @@ public:
 
     bool evaluate() override
     {
+        hlt::log::log("Entering Check turns");
+
         int remainingTurns = hlt::constants::MAX_TURNS - m_blackboard->m_game->turn_number;
 
         if(m_type == GREATER)

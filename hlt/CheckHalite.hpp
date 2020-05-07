@@ -15,6 +15,8 @@ public:
 
     bool evaluate() override
     {
+
+        hlt::log::log("Entering Check halite");
         if(m_type == LESS)
             return m_blackboard->m_game->me->halite < m_amount;
 

@@ -15,6 +15,8 @@ public:
 
     bool evaluate() override
     {
+        hlt::log::log("Entering Check ships");
+
         if(m_type == GREATER)
             return m_blackboard->m_game->me->ships.size() > m_amount;
 
