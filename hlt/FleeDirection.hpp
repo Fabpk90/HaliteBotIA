@@ -46,15 +46,15 @@ public:
         }
 
         //Setting the new target in the blackboard
-        hlt::Position target = hlt::Position(m_blackboard->ship->position.x + x, m_blackboard->ship->position.y + y);
-        m_blackboard->target = target;
-        hlt::Direction dir = m_game->game_map->naive_navigate(m_blackboard->ship, target);
-        hlt::MapCell* cell = m_game->game_map->at(target);
+        hlt::Position target = hlt::Position(m_blackboard->m_ship->position.x + x, m_blackboard->m_ship->position.y + y);
+        m_blackboard->m_target = target;
+        hlt::Direction dir = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, target);
+        hlt::MapCell* cell = m_blackboard->m_game->game_map->at(target);
 
         if(x == 0 && y == 0 || cell->is_occupied()){
-            m_blackboard->commands.push_back(m_blackboard->ship->stay_still());
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->stay_still());
         }else{
-            m_blackboard->commands.push_back(m_blackboard->ship->move(dir));
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(dir));
         }
 
         return true;
