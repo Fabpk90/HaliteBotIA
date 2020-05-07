@@ -10,8 +10,10 @@
 //Checking if the associated ship is surrounded by more enemy ships than ally ones
 class Surrounded : public Node
 {
+protected:
+    EEntityType m_entityType;
 public:
-    Surrounded(Blackboard* blackboard) : Node(blackboard){};
+    Surrounded(Blackboard* blackboard, EEntityType entityType) : Node(blackboard){};
     bool evaluate()
     {
         m_blackboard->m_shipsAround.clear();
@@ -43,7 +45,7 @@ public:
                 }
             }
         }
-        return enemiesAround > alliesAround;
+        return (m_entityType == ENEMY) ? (enemiesAround > alliesAround) : (enemiesAround < alliesAround);
     }
 };
 
