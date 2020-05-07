@@ -7,13 +7,6 @@
 
 #include "hlt/Node.hpp"
 
-enum EEntityType
-{
-    DROPOFF,
-    ENEMY,
-    ALLY
-};
-
 class FarEnoughFrom : public Node
 {
 protected:

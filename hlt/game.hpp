@@ -7,6 +7,13 @@
 #include <vector>
 #include <iostream>
 
+enum EEntityType
+{
+    DROPOFF,
+    ENEMY,
+    ALLY
+};
+
 namespace hlt {
     struct Game {
         int turn_number;

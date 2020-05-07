@@ -12,6 +12,7 @@
 #include "hlt/MoveTowards.hpp"
 #include "hlt/FindHalite.hpp"
 #include "hlt/SequencerTransform.hpp"
+#include "hlt/SequencerDropHalite.hpp"
 #include "hlt/constants.hpp"
 
 using namespace std;
@@ -51,6 +52,7 @@ int main(int argc, char* argv[]) {
     btShip.addNode(s);
 
     btShip.addNode(new SequencerTransform(&b));
+    btShip.addNode(new SequencerDropHalite(&b));
 
     BehaviourTree btShipyard = BehaviourTree(&b);
 
