@@ -6,6 +6,8 @@
 #define MYBOT_BLACKBOARD_HPP
 
 #define ENEMY_MIN_DIST 4
+#define MIN_SHIPS 3
+#define MIN_DROPOFF_DIST 5
 #define HALITE_SEARCH_PERIMETER 4
 
 #include "game.hpp"

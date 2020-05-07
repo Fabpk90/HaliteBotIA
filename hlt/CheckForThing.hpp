@@ -9,6 +9,7 @@
 
 enum ECmpType
 {
+    EQUAL,
     GREATER,
     LESS
 };

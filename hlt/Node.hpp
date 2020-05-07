@@ -7,6 +7,7 @@
 
 #include "Blackboard.hpp"
 #include "game.hpp"
+#include "hlt/constants.hpp"
 
 
 class Node
