@@ -7,23 +7,22 @@
 
 
 #include "Node.hpp"
+#include "CheckForThing.hpp"
 
-enum ECmpType
-{
-    GREATER,
-    LESS
-};
 
-class CheckShipCapacity : Node
+class CheckShipCapacity : public CheckForThing
 {
-private:
-    int m_amount;
-    ECmpType m_type;
 public:
-    CheckShipCapacity(hlt::Game* game, Blackboard* blackboard, hlt::Player *player, hlt::Ship *ship, int amount, ECmpType type)
-    : Node(game,blackboard, player, ship), m_amount(amount), m_type(type)
+    CheckShipCapacity(Blackboard* blackboard, int amount, ECmpType type)
+    : CheckForThing(blackboard, amount, type)
     {}
-    bool evaluate() override;
+    bool evaluate() override
+    {
+        if(m_type == ECmpType::GREATER)
+            return m_blackboard->m_ship->halite > m_amount;
+
+        return m_blackboard->m_ship->halite < m_amount;
+    }
 };
 
 

@@ -11,28 +11,28 @@
 class FleeDirection : public Node
 {
 public:
-    FleeDirection(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : Node(game, blackboard, player){};
+    FleeDirection(Blackboard* blackboard) : Node(blackboard){};
     bool evaluate()
     {
         int xWeight = 0, yWeight = 0;
         //Calculating weight for each direction considering the coordinates of the ships around
-        for(const auto& ship : m_blackboard->shipsAround)
+        for(const auto& ship : m_blackboard->m_shipsAround)
         {
-            auto tShip = m_player->ships.find(ship->id);
+            auto tShip = m_blackboard->m_player->ships.find(ship->id);
             //If the ship is not contained within the player ship list, it is an enemy
-            bool isEnemy = (tShip == m_player->ships.end());
+            bool isEnemy = (tShip == m_blackboard->m_player->ships.end());
 
             if(isEnemy){
-                if(ship->position.x > m_blackboard->ship->position.x)
+                if(ship->position.x > m_blackboard->m_ship->position.x)
                     --xWeight;
                     //(isEnemy) ? ++rightWeight : --rightWeight;
-                if(ship->position.x < m_blackboard->ship->position.x)
+                if(ship->position.x < m_blackboard->m_ship->position.x)
                     ++xWeight;
                     //(isEnemy) ? ++leftWeight : --leftWeight;
-                if(ship->position.y > m_blackboard->ship->position.y)
+                if(ship->position.y > m_blackboard->m_ship->position.y)
                     --yWeight;
                     //(isEnemy) ? ++upWeight : --upWeight;
-                if(ship->position.y < m_blackboard->ship->position.y)
+                if(ship->position.y < m_blackboard->m_ship->position.y)
                     ++yWeight;
                     //(isEnemy) ? ++downWeight : --downWeight;
             }

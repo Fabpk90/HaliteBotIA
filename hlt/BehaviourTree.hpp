@@ -14,7 +14,7 @@
 class BehaviourTree
 {
 public:
-    BehaviourTree(hlt::Game* game, Blackboard* blackboard) : m_game(game), m_blackboard(blackboard){}
+    BehaviourTree(Blackboard* blackboard) : m_blackboard(blackboard){}
     void addNode(Node* newNode)
     {
         m_nodes.push_back(newNode);
@@ -28,8 +28,13 @@ public:
         }
     }
 
+    ~BehaviourTree()
+    {
+        for(Node* n : m_nodes)
+            delete n;
+    }
+
 private:
-    hlt::Game* m_game;
     std::vector<Node*> m_nodes;
     Blackboard* m_blackboard;
 };

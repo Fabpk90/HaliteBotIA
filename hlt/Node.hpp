@@ -12,11 +12,10 @@
 class Node
 {
 public:
-    Node(hlt::Game* game, Blackboard* blackboard, std::shared_ptr<hlt::Player> player) : m_game(game), m_blackboard(blackboard), m_player(player){}
+    Node(Blackboard* blackboard) : m_blackboard(blackboard){}
     virtual bool evaluate() = 0;
+    virtual ~Node() = default;
 protected:
-    hlt::Game* m_game;
-    std::shared_ptr<hlt::Player> m_player;
     Blackboard* m_blackboard;
 };
 
