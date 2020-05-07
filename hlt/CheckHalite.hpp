@@ -15,12 +15,17 @@ public:
 
     bool evaluate() override
     {
-
         hlt::log::log("Entering Check halite");
-        if(m_type == LESS)
-            return m_blackboard->m_game->me->halite < m_amount;
-
-        return m_blackboard->m_game->me->halite >= m_amount;
+        switch(m_type)
+        {
+            case ECmpType::GREATER:
+                return m_blackboard->m_game->me->halite > m_amount;
+            case ECmpType::EQUAL:
+                return m_blackboard->m_ship->halite == m_amount;
+            case ECmpType::LESS:
+                return m_blackboard->m_game->me->halite < m_amount;
+        }
+        return false;
     }
 
 };

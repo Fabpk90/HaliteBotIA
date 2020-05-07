@@ -41,12 +41,21 @@ public:
 
         //Clamping to 1 cell unit max
         x = std::max(-1, std::min(xWeight, 1));
-        if(x == 0)
+        if(x == 0){
             y = std::max(-1, std::min(yWeight, 1));
+        }
 
         //Setting the new target in the blackboard
         hlt::Position target = hlt::Position(m_blackboard->m_ship->position.x + x, m_blackboard->m_ship->position.y + y);
         m_blackboard->m_target = target;
+        hlt::Direction dir = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, target);
+        hlt::MapCell* cell = m_blackboard->m_game->game_map->at(target);
+
+        if(x == 0 && y == 0 || cell->is_occupied()){
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->stay_still());
+        }else{
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(dir));
+        }
 
         return true;
     }

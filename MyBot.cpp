@@ -11,6 +11,9 @@
 #include "hlt/CheckShipCapacity.hpp"
 #include "hlt/MoveTowards.hpp"
 #include "hlt/FindHalite.hpp"
+#include "hlt/SequencerTransform.hpp"
+#include "hlt/SequencerDropHalite.hpp"
+#include "hlt/SequencerAttack.hpp"
 #include "hlt/constants.hpp"
 
 using namespace std;
@@ -40,7 +43,7 @@ int main(int argc, char* argv[]) {
     b.m_player = me;
     b.m_game = &game;
     BehaviourTree btShip = BehaviourTree(&b);
-    btShip.addNode(new SequencerFlee(&game, &b, game.me));
+    btShip.addNode(new SequencerFlee(&b));
 
     Sequencer* s = new Sequencer(&b);
     s->addNode(new CheckShipCapacity(&b, constants::MAX_HALITE, LESS));
@@ -48,6 +51,10 @@ int main(int argc, char* argv[]) {
     s->addNode(new MoveTowards(&b));
 
     btShip.addNode(s);
+
+    btShip.addNode(new SequencerTransform(&b));
+    btShip.addNode(new SequencerDropHalite(&b));
+    btShip.addNode(new SequencerAttack(&b));
 
     BehaviourTree btShipyard = BehaviourTree(&b);
 
