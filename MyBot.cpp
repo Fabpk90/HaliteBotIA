@@ -2,8 +2,8 @@
 
 #include <random>
 #include <ctime>
-#include "hlt/Blackboard.hpp"
-#include "hlt/BehaviourTree.hpp"
+#include <hlt/Blackboard.hpp>
+#include <hlt/BehaviourTree.hpp>
 
 using namespace std;
 using namespace hlt;
