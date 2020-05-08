@@ -12,8 +12,6 @@ public:
     Sequencer(Blackboard* blackboard) : NodeContainer(blackboard){}
     bool evaluate()
     {
-        hlt::log::log("Entering sequencer");
-        hlt::log::log(std::to_string(m_nodes.size()));
         for(unsigned int i = 0; i < m_nodes.size(); ++i)
         {
             if(!m_nodes[i]->evaluate())

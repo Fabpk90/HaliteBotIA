@@ -22,7 +22,6 @@ public:
 
     void evaluate()
     {
-        hlt::log::log("Entering behaviour tree");
         for(const auto& node: m_nodes )
         {
             node->evaluate();

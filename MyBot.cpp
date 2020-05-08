@@ -2,6 +2,7 @@
 
 #include <random>
 #include <ctime>
+#include "hlt/SequencerCollectHalite.hpp"
 #include "hlt/CheckHalite.hpp"
 #include "hlt/CheckRemaningShips.hpp"
 #include "hlt/CheckForRemainingTurns.hpp"
@@ -14,6 +15,7 @@
 #include "hlt/SequencerTransform.hpp"
 #include "hlt/SequencerDropHalite.hpp"
 #include "hlt/SequencerAttack.hpp"
+#include "hlt/SequencerSpawnShip.hpp"
 #include "hlt/constants.hpp"
 
 using namespace std;
@@ -42,30 +44,17 @@ int main(int argc, char* argv[]) {
     Blackboard b = Blackboard();
     b.m_player = me;
     b.m_game = &game;
+
     BehaviourTree btShip = BehaviourTree(&b);
     btShip.addNode(new SequencerFlee(&b));
-
-    Sequencer* s = new Sequencer(&b);
-    s->addNode(new CheckShipCapacity(&b, constants::MAX_HALITE, LESS));
-    s->addNode(new FindHalite(&b));
-    s->addNode(new MoveTowards(&b));
-
-    btShip.addNode(s);
-
+    btShip.addNode(new SequencerCollectHalite(&b));
     btShip.addNode(new SequencerTransform(&b));
     btShip.addNode(new SequencerDropHalite(&b));
     btShip.addNode(new SequencerAttack(&b));
 
     BehaviourTree btShipyard = BehaviourTree(&b);
 
-    Sequencer* s1 = new Sequencer(&b);
-
-    s1->addNode(new CheckHalite(&b, 1000, GREATER));
-    s1->addNode(new CheckRemainingShips(&b, 8, LESS));
-    s1->addNode(new CheckForRemainingTurns(&b, 10, GREATER));
-    s1->addNode(new CreateShip(&b));
-
-    btShipyard.addNode(s1);
+    btShipyard.addNode(new SequencerSpawnShip(&b));
 
     for (;;) {
         game.update_frame();
@@ -78,8 +67,6 @@ int main(int argc, char* argv[]) {
             b.m_ship = ship.second;
             btShip.evaluate();
         }
-
-        log::log(to_string(b.m_commands.size()));
 
         if (!game.end_turn((b.m_commands))) {
             break;
