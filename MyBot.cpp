@@ -42,35 +42,34 @@ int main(int argc, char* argv[]) {
 
     shared_ptr<Player> me = game.me;
 
-    Blackboard b = Blackboard();
-    b.m_player = me;
-    b.m_game = &game;
+    Blackboard* b = new Blackboard();
+    b->m_player = me;
+    b->m_game = &game;
 
-    BehaviourTree btShip = BehaviourTree(&b);
-    btShip.addNode(new SequencerFlee(&b));
-    btShip.addNode(new SequencerCollectHalite(&b));
-    btShip.addNode(new SequencerTransform(&b));
-    btShip.addNode(new SequencerDropHalite(&b));
-    btShip.addNode(new SequencerAttack(&b));
-    btShip.addNode(new SequencerWait(&b));
+    BehaviourTree* btShip = new BehaviourTree(b);
+    btShip->addNode(new SequencerFlee(b));
+    btShip->addNode(new SequencerCollectHalite(b));
+    btShip->addNode(new SequencerTransform(b));
+    btShip->addNode(new SequencerDropHalite(b));
+    btShip->addNode(new SequencerAttack(b));
+    btShip->addNode(new SequencerWait(b));
 
-    BehaviourTree btShipyard = BehaviourTree(&b);
+    BehaviourTree* btShipyard = new BehaviourTree(b);
 
-    btShipyard.addNode(new SequencerSpawnShip(&b));
+    btShipyard->addNode(new SequencerSpawnShip(b));
 
     for (;;) {
         game.update_frame();
-        b.m_commands.clear();
+        b->m_commands.clear();
 
-        btShipyard.evaluate();
-
-        for(auto& ship : me->ships)
+        for(auto ship : me->ships)
         {
-            b.m_ship = ship.second;
-            btShip.evaluate();
+            b->m_ship = ship.second;
+            btShip->evaluate();
         }
 
-        if (!game.end_turn((b.m_commands))) {
+        btShipyard->evaluate();
+        if (!game.end_turn((b->m_commands))) {
             break;
         }
     }

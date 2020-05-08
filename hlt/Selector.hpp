@@ -10,7 +10,7 @@ class Selector : public NodeContainer
 {
 public:
     Selector(Blackboard* blackboard) : NodeContainer(blackboard){};
-    bool evaluate()
+    bool evaluate() override
     {
         for(int i = 0; i < m_nodes.size(); ++i)
         {

@@ -17,7 +17,7 @@ class BehaviourTree : public Selector
 public:
     BehaviourTree(Blackboard* blackboard) : Selector(blackboard) {}
 
-    ~BehaviourTree()
+    ~BehaviourTree() override
     {
         for(Node* n : m_nodes)
             delete n;
