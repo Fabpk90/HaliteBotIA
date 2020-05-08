@@ -10,12 +10,14 @@
 #include "CheckRemaningShips.hpp"
 #include "CheckForRemainingTurns.hpp"
 #include "CreateShip.hpp"
+#include "CheckForEmptyCell.hpp"
 
 class SequencerSpawnShip : public Sequencer
 {
 public:
     SequencerSpawnShip(Blackboard* b) : Sequencer(b)
     {
+        addNode(new CheckForEmptyCell(b));
         addNode(new CheckHalite(b, 1000, GREATER));
         addNode(new CheckRemainingShips(b, 8, LESS));
         addNode(new CheckForRemainingTurns(b, 10, GREATER));

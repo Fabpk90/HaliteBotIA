@@ -9,7 +9,7 @@
 class Selector : public NodeContainer
 {
 public:
-    Selector(hlt::Game* game, Blackboard* blackboard, hlt::Player *player) : NodeContainer(game, blackboard, player){}
+    Selector(Blackboard* blackboard) : NodeContainer(blackboard){};
     bool evaluate()
     {
         for(int i = 0; i < m_nodes.size(); ++i)

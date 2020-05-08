@@ -10,33 +10,18 @@
 #include "SequencerFlee.hpp"
 
 #include "game.hpp"
+#include "Selector.hpp"
 
-class BehaviourTree
+class BehaviourTree : public Selector
 {
 public:
-    BehaviourTree(Blackboard* blackboard) : m_blackboard(blackboard){}
-    void addNode(Node* newNode)
-    {
-        m_nodes.push_back(newNode);
-    }
-
-    void evaluate()
-    {
-        for(const auto& node: m_nodes )
-        {
-            node->evaluate();
-        }
-    }
+    BehaviourTree(Blackboard* blackboard) : Selector(blackboard) {}
 
     ~BehaviourTree()
     {
         for(Node* n : m_nodes)
             delete n;
     }
-
-private:
-    std::vector<Node*> m_nodes;
-    Blackboard* m_blackboard;
 };
 
 

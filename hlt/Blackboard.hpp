@@ -9,7 +9,7 @@
 #define MIN_SHIPS 3
 #define MIN_DROPOFF_DIST 5
 #define HALITE_DIFF_INTEREST (hlt::constants::MAX_HALITE/2)
-#define HALITE_SEARCH_PERIMETER 4
+#define HALITE_SEARCH_PERIMETER 2
 
 #include "game.hpp"
 #include <vector>

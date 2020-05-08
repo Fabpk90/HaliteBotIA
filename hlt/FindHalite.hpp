@@ -39,7 +39,6 @@ public:
         }
 
         m_blackboard->m_target = finalPosition;
-
         return maxHalite != -1;
     }
 };
