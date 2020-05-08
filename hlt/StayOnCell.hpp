@@ -8,17 +8,18 @@
 
 #include "Node.hpp"
 
-class StayOnCell : Node
+class StayOnCell : public Node
 {
 public:
-    StayOnCell(hlt::Game* game,Blackboard* blackboard, std::shared_ptr<hlt::Player> player)
-    : Node(game, blackboard, player)
+    StayOnCell(Blackboard* blackboard)
+    : Node(blackboard)
     {};
 
     bool evaluate() override
     {
         m_blackboard->m_commands.push_back(m_blackboard->m_ship->stay_still());
-    }
+        return true;
+    };
 };
 
 
