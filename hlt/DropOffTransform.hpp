@@ -13,6 +13,7 @@ public:
     DropOffTransform(Blackboard *blackboard) : Node(blackboard){}
     bool evaluate()
     {
+        hlt::log::log("transforming into dropoff");
         m_blackboard->m_commands.push_back(m_blackboard->m_ship->make_dropoff());
         return true;
     }

@@ -67,16 +67,16 @@ int main(int argc, char* argv[]) {
         log::log("Ships for me" + to_string(me->ships.size()));
 
 
-
         for(auto ship : me->ships)
         {
             b->m_ship = ship.second;
             btShip->evaluate();
+            log::log("commands for me " + to_string(b->m_commands.size()));
         }
 
         btShipyard->evaluate();
-        
-        if (!game.end_turn((b->m_commands))) {
+
+        if (!game.end_turn(b->m_commands)) {
             break;
         }
     }
