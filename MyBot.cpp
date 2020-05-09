@@ -70,6 +70,7 @@ int main(int argc, char* argv[]) {
         for(auto ship : me->ships)
         {
             b->m_ship = ship.second;
+            b->update();
             btShip->evaluate();
             log::log("commands for me " + to_string(b->m_commands.size()));
         }

@@ -19,7 +19,7 @@ public:
     {
         addNode(new CheckForEmptyCell(b));
         addNode(new CheckHalite(b, 1000, GREATER));
-        addNode(new CheckRemainingShips(b, 8, LESS));
+        addNode(new CheckRemainingShips(b, 4, LESS));
         addNode(new CheckForRemainingTurns(b, 10, GREATER));
         addNode(new CreateShip(b));
     }

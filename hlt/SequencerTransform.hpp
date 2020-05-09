@@ -17,7 +17,7 @@ class SequencerTransform : public Sequencer
 public:
     SequencerTransform(Blackboard* blackboard) : Sequencer(blackboard)
     {
-        addNode(new CheckShipCapacity(blackboard, hlt::constants::MAX_HALITE, EQUAL));
+        addNode(new CheckShipCapacity(blackboard, hlt::constants::MAX_HALITE/2, GREATER));
         addNode(new CheckRemainingShips(blackboard, MIN_SHIPS, GREATER));
         addNode(new CheckHalite(blackboard, hlt::constants::DROPOFF_COST, GREATER));
         addNode(new FarEnoughFrom(blackboard, DROPOFF, MIN_DROPOFF_DIST));
