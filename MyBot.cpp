@@ -55,9 +55,10 @@ int main(int argc, char* argv[]) {
     btShip->addNode(new SequencerAttack(b));
     btShip->addNode(new SequencerWait(b));
 
-    BehaviourTree* btShipyard = new BehaviourTree(b);
+    auto* btShipyard = new BehaviourTree(b);
 
     btShipyard->addNode(new SequencerSpawnShip(b));
+    btShipyard->evaluate();
 
     for (;;) {
         game.update_frame();
@@ -65,24 +66,16 @@ int main(int argc, char* argv[]) {
 
         log::log("Ships for me" + to_string(me->ships.size()));
 
+
+
         for(auto ship : me->ships)
         {
             b->m_ship = ship.second;
             btShip->evaluate();
         }
 
-        log::log("Starting bt shipyard " + to_string(btShipyard->getCountNodes()));
-
-       /* if(btShipyard->evaluate())
-        {
-            log::log("Fuck");
-        }
-        else
-        {
-            log::log("yup");
-        }*/
-
-        log::log("end");
+        btShipyard->evaluate();
+        
         if (!game.end_turn((b->m_commands))) {
             break;
         }

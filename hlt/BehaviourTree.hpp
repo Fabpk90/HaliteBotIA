@@ -15,13 +15,13 @@ public:
 
     bool evaluate() override
     {
-        hlt::log::log("Starting bt " + std::to_string(m_blackboard->m_ship->id));
-        /*for(int i = 0; i < m_nodes.size(); ++i)
+        hlt::log::log("Starting bt");
+        for(int i = 0; i < m_nodes.size(); ++i)
         {
             hlt::log::log("Eval " + std::to_string(i));
             if(m_nodes[i]->evaluate())
                 return true;
-        }*/
+        }
         return false;
     }
 
