@@ -27,9 +27,9 @@ public:
             return true;
         }
 
-        for (int i = 0; i < HALITE_SEARCH_PERIMETER; ++i)
+        for (int i = -HALITE_SEARCH_PERIMETER; i < HALITE_SEARCH_PERIMETER; ++i)
         {
-            for (int j = 0; j < HALITE_SEARCH_PERIMETER; ++j)
+            for (int j = -HALITE_SEARCH_PERIMETER; j < HALITE_SEARCH_PERIMETER; ++j)
             {
                 finalPosition.x = p.x + i;
                 finalPosition.y = p.y + j;

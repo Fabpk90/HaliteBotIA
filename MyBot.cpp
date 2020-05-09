@@ -49,9 +49,9 @@ int main(int argc, char* argv[]) {
 
     BehaviourTree* btShip = new BehaviourTree(b);
     btShip->addNode(new SequencerFlee(b));
-    btShip->addNode(new SequencerCollectHalite(b));
-    btShip->addNode(new SequencerTransform(b));
     btShip->addNode(new SequencerDropHalite(b));
+    btShip->addNode(new SequencerTransform(b));
+    btShip->addNode(new SequencerCollectHalite(b));
     btShip->addNode(new SequencerAttack(b));
     btShip->addNode(new SequencerWait(b));
 
