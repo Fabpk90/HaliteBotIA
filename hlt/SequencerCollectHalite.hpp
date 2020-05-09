@@ -16,8 +16,8 @@ class SequencerCollectHalite : public Sequencer
 public:
     SequencerCollectHalite(Blackboard* blackboard) : Sequencer(blackboard)
     {
-        addNode(new CheckShipCapacity(blackboard, hlt::constants::MAX_HALITE, LESS));
         addNode(new CheckWorthCollect(blackboard));
+        addNode(new CheckShipCapacity(blackboard, 600, LESS));
         addNode(new FindHalite(blackboard));
         addNode(new MoveTowards(blackboard));
     }

@@ -18,7 +18,7 @@ public:
     {}
     bool evaluate() override
     {
-        hlt::log::log("check ship capacity");
+        hlt::log::log("check ship capacity " + std::to_string(m_blackboard->m_ship->halite));
         switch(m_type)
         {
             case ECmpType::GREATER:
