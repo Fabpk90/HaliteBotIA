@@ -15,6 +15,7 @@
 #include "hlt/SequencerTransform.hpp"
 #include "hlt/SequencerDropHalite.hpp"
 #include "hlt/SequencerAttack.hpp"
+#include "hlt/SequencerFlee.hpp"
 #include "hlt/SequencerSpawnShip.hpp"
 #include "hlt/SequencerWait.hpp"
 #include "hlt/constants.hpp"
@@ -62,13 +63,26 @@ int main(int argc, char* argv[]) {
         game.update_frame();
         b->m_commands.clear();
 
+        log::log("Ships for me" + to_string(me->ships.size()));
+
         for(auto ship : me->ships)
         {
             b->m_ship = ship.second;
             btShip->evaluate();
         }
 
-        btShipyard->evaluate();
+        log::log("Starting bt shipyard " + to_string(btShipyard->getCountNodes()));
+
+       /* if(btShipyard->evaluate())
+        {
+            log::log("Fuck");
+        }
+        else
+        {
+            log::log("yup");
+        }*/
+
+        log::log("end");
         if (!game.end_turn((b->m_commands))) {
             break;
         }
