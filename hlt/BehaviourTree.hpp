@@ -5,38 +5,33 @@
 #ifndef MYBOT_BEHAVIOURTREE_HPP
 #define MYBOT_BEHAVIOURTREE_HPP
 #include "Blackboard.hpp"
-#include "Node.hpp"
 
-#include "SequencerFlee.hpp"
+#include "Selector.hpp"
 
-#include "game.hpp"
-
-class BehaviourTree
+class BehaviourTree : public NodeContainer
 {
 public:
-    BehaviourTree(Blackboard* blackboard) : m_blackboard(blackboard){}
-    void addNode(Node* newNode)
-    {
-        m_nodes.push_back(newNode);
-    }
+    BehaviourTree(Blackboard* blackboard) : NodeContainer(blackboard) {}
 
-    void evaluate()
+    bool evaluate() override
     {
-        for(const auto& node: m_nodes )
+        hlt::log::log("Starting bt");
+        for(int i = 0; i < m_nodes.size(); ++i)
         {
-            node->evaluate();
+            hlt::log::log("Eval " + std::to_string(i));
+            if(m_nodes[i]->evaluate())
+                return true;
         }
+        return false;
     }
 
-    ~BehaviourTree()
+    ~BehaviourTree() override
     {
         for(Node* n : m_nodes)
             delete n;
     }
 
-private:
-    std::vector<Node*> m_nodes;
-    Blackboard* m_blackboard;
+    int getCountNodes() { return m_nodes.size(); }
 };
 
 

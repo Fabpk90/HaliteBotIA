@@ -16,31 +16,36 @@ public:
     bool evaluate() override
     {
         hlt::Position p = m_blackboard->m_game->game_map->at(m_blackboard->m_ship)->position;
-        int maxHalite = -1;
         hlt::Position finalPosition = p;
+
+        hlt::log::log("find halite");
+
+        if(m_blackboard->m_game->game_map->at(p)->halite > 0)
+        {
+            hlt::log::log("halite same pos");
+            m_blackboard->m_target = p;
+            return true;
+        }
 
         for (int i = 0; i < HALITE_SEARCH_PERIMETER; ++i)
         {
             for (int j = 0; j < HALITE_SEARCH_PERIMETER; ++j)
             {
-                hlt::Position position = p;
+                finalPosition.x = p.x + i;
+                finalPosition.y = p.y + j;
 
-                position.x += i;
-                position.y += j;
-
-                auto* cell = m_blackboard->m_game->game_map->at(position);
-
-                if(!cell->is_occupied() && cell->halite >= maxHalite)
+                if(m_blackboard->m_game->game_map->at(finalPosition)->halite > 0)
                 {
-                    finalPosition = position;
-                    maxHalite = cell->halite;
+                    hlt::log::log("halite not same pos");
+                    m_blackboard->m_target = finalPosition;
+                    return true;
                 }
             }
         }
 
-        m_blackboard->m_target = finalPosition;
+        hlt::log::log("nothing");
 
-        return maxHalite != -1;
+        return false;
     }
 };
 #endif //MYBOT_FINDHALITE_HPP

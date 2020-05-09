@@ -15,6 +15,7 @@ public:
 
     bool evaluate() override
     {
+        hlt::log::log("Entering Check halite");
         switch(m_type)
         {
             case ECmpType::GREATER:

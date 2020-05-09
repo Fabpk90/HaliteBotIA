@@ -15,6 +15,8 @@ public:
 
     bool evaluate() override
     {
+        hlt::log::log("Entering create ships");
+
         m_blackboard->m_commands.push_back(m_blackboard->m_game->me->shipyard->spawn());
         return true;
     }

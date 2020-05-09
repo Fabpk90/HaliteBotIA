@@ -2,10 +2,11 @@
 
 #include <random>
 #include <ctime>
-#include <CheckHalite.hpp>
-#include <CheckRemaningShips.hpp>
-#include <CheckForRemainingTurns.hpp>
-#include <CreateShip.hpp>
+#include "hlt/SequencerCollectHalite.hpp"
+#include "hlt/CheckHalite.hpp"
+#include "hlt/CheckRemaningShips.hpp"
+#include "hlt/CheckForRemainingTurns.hpp"
+#include "hlt/CreateShip.hpp"
 #include "hlt/Blackboard.hpp"
 #include "hlt/BehaviourTree.hpp"
 #include "hlt/CheckShipCapacity.hpp"
@@ -14,6 +15,9 @@
 #include "hlt/SequencerTransform.hpp"
 #include "hlt/SequencerDropHalite.hpp"
 #include "hlt/SequencerAttack.hpp"
+#include "hlt/SequencerFlee.hpp"
+#include "hlt/SequencerSpawnShip.hpp"
+#include "hlt/SequencerWait.hpp"
 #include "hlt/constants.hpp"
 
 using namespace std;
@@ -39,49 +43,40 @@ int main(int argc, char* argv[]) {
 
     shared_ptr<Player> me = game.me;
 
-    Blackboard b = Blackboard();
-    b.m_player = me;
-    b.m_game = &game;
-    BehaviourTree btShip = BehaviourTree(&b);
-    btShip.addNode(new SequencerFlee(&b));
+    Blackboard* b = new Blackboard();
+    b->m_player = me;
+    b->m_game = &game;
 
-    Sequencer* s = new Sequencer(&b);
-    s->addNode(new CheckShipCapacity(&b, constants::MAX_HALITE, LESS));
-    s->addNode(new FindHalite(&b));
-    s->addNode(new MoveTowards(&b));
+    BehaviourTree* btShip = new BehaviourTree(b);
+    btShip->addNode(new SequencerFlee(b));
+    btShip->addNode(new SequencerCollectHalite(b));
+    btShip->addNode(new SequencerTransform(b));
+    btShip->addNode(new SequencerDropHalite(b));
+    btShip->addNode(new SequencerAttack(b));
+    btShip->addNode(new SequencerWait(b));
 
-    btShip.addNode(s);
+    auto* btShipyard = new BehaviourTree(b);
 
-    btShip.addNode(new SequencerTransform(&b));
-    btShip.addNode(new SequencerDropHalite(&b));
-    btShip.addNode(new SequencerAttack(&b));
-
-    BehaviourTree btShipyard = BehaviourTree(&b);
-
-    Sequencer* s1 = new Sequencer(&b);
-
-    s1->addNode(new CheckHalite(&b, 1000, GREATER));
-    s1->addNode(new CheckRemainingShips(&b, 8, LESS));
-    s1->addNode(new CheckForRemainingTurns(&b, 10, GREATER));
-    s1->addNode(new CreateShip(&b));
-
-    btShipyard.addNode(s1);
+    btShipyard->addNode(new SequencerSpawnShip(b));
+    btShipyard->evaluate();
 
     for (;;) {
         game.update_frame();
-        b.m_commands.clear();
+        b->m_commands.clear();
 
-        btShipyard.evaluate();
+        log::log("Ships for me" + to_string(me->ships.size()));
 
-        for(auto& ship : me->ships)
+
+
+        for(auto ship : me->ships)
         {
-            b.m_ship = ship.second;
-            btShip.evaluate();
+            b->m_ship = ship.second;
+            btShip->evaluate();
         }
 
-        log::log(to_string(b.m_commands.size()));
-
-        if (!game.end_turn((b.m_commands))) {
+        btShipyard->evaluate();
+        
+        if (!game.end_turn((b->m_commands))) {
             break;
         }
     }

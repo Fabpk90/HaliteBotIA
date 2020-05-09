@@ -18,6 +18,7 @@ public:
     {}
     bool evaluate() override
     {
+        hlt::log::log("check ship capacity");
         switch(m_type)
         {
             case ECmpType::GREATER:

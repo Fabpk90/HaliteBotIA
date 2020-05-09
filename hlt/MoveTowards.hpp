@@ -18,9 +18,17 @@ public:
 
     bool evaluate() override
     {
-        hlt::Direction d = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, m_blackboard->m_target);
-        m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(d));
-
+        if(m_blackboard->m_ship->position ==  m_blackboard->m_target)
+        {
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->stay_still());
+            hlt::log::log("move cell" + std::to_string(m_blackboard->m_ship->id));
+        }
+        else
+        {
+            hlt::log::log("move first if cell");
+            hlt::Direction d = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, m_blackboard->m_target);
+            m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(d));
+        }
         return true;
     };
 };
