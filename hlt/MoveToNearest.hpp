@@ -48,11 +48,11 @@ public:
         }
         hlt::Direction dir = m_blackboard->m_game->game_map->naive_navigate(m_blackboard->m_ship, dest);
 
-        m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(dir));
-
         if(dir == hlt::Direction::STILL){
             return false;
         }
+
+        m_blackboard->m_commands.push_back(m_blackboard->m_ship->move(dir));
 
         return true;
     }
