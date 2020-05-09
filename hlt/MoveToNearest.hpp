@@ -15,9 +15,9 @@ public:
     MoveToNearest(Blackboard *blackboard, EEntityType entityType) : Node(blackboard), m_entityType(entityType){}
     bool evaluate()
     {
-        hlt::Position dest(0,0);
+        hlt::Position dest(m_blackboard->m_game->me->shipyard->position);
         //Setting default unreachable distance
-        int smallestDist = m_blackboard->m_game->game_map->width*m_blackboard->m_game->game_map->height;
+        int smallestDist = m_blackboard->m_game->game_map->calculate_distance(m_blackboard->m_game->me->shipyard->position, m_blackboard->m_ship->position);
         switch(m_entityType)
         {
             case DROPOFF:

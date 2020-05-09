@@ -7,6 +7,7 @@
 
 #include "Sequencer.hpp"
 #include "CheckShipCapacity.hpp"
+#include "CheckWorthCollect.hpp"
 #include "FindHalite.hpp"
 #include "MoveTowards.hpp"
 
@@ -16,6 +17,7 @@ public:
     SequencerCollectHalite(Blackboard* blackboard) : Sequencer(blackboard)
     {
         addNode(new CheckShipCapacity(blackboard, hlt::constants::MAX_HALITE, LESS));
+        addNode(new CheckWorthCollect(blackboard));
         addNode(new FindHalite(blackboard));
         addNode(new MoveTowards(blackboard));
     }
